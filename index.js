@@ -1,6 +1,12 @@
+require("dotenv").config();
 const express = require("express");
 var morgan = require("morgan");
+const cors = require("cors");
+// const Person = require("./models/person");
+
 const app = express();
+app.use(express.static("build"));
+app.use(cors());
 app.use(express.json());
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :param")
@@ -93,7 +99,7 @@ app.post("/api/persons", (request, response) => {
   response.json(person);
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
